@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아트에이블 수채화다이어리 | 펼치면, 아뜰리에</title>
+<meta name="description" content="수채화 다이어리 · 수채화 세트 · 취미미술 입문 · 그림 선물. 팔레트와 컬러링북이 한 권에 담긴 아트에이블 수채화다이어리 (슬림형·미니·기본형).">
+<!--
+  ============================================================
+  아트에이블 수채화다이어리 랜딩페이지 v2
+  [레퍼런스 종합: 한맥(증명·안심4단계) / 네스프레소(스펙시각화·희소성·크로스셀·스티키바)
+   / 스마트스토어(리뷰신뢰·설득순서·검색키워드) / JCB(리뷰이벤트·기한수량·해시태그)]
+
+  ▶ [링크 교체]  data-buy / data-store 로 표시된 <a>의 href를 실제 스마트스토어 주소로.
+     6개: 기본형세트/기본형단품/슬림형세트/슬림형단품/미니세트/미니단품 + 스토어전체(data-store)
+  ▶ [사진/영상 교체]  .ph(이미지) / .phv(영상) 박스의 data-label 안내대로 실제 소재 삽입.
+  ▶ [이벤트]  런칭 이벤트 문구·기간·수량은 예시입니다. 실제 조건으로 수정하세요.
+  ============================================================
+-->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Montserrat:wght@200;300;400;600&display=swap');
+
+:root{
+  --bg:#faf6f1; --bg2:#f2ebe1; --ink:#2a2623; --sub:#837b70; --line:#e7ddce;
+  --teal:#c24a6b; --teal-d:#9c3452; --coral:#c1786a; --gold:#c0a15e; --black:#1a1614;
+  --card:#fffdf9; --shadow:0 18px 50px -24px rgba(60,50,35,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;word-break:keep-all}
+.wrap{max-width:1260px;margin:0 auto;padding:0 40px}
+h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.28}
+h1,h2,h3,h4{text-wrap:balance}
+p,.use,.perday,.desc,.nsub,.sub{text-wrap:pretty}
+.eyebrow{font-family:'Montserrat',sans-serif;font-weight:400;letter-spacing:.3em;text-transform:uppercase;font-size:12px;color:var(--teal);margin-bottom:16px}
+.muted{color:var(--sub)} a{color:inherit;text-decoration:none}
+.blob{position:absolute;border-radius:50%;filter:blur(48px);opacity:.5;z-index:0;pointer-events:none}
+svg.ic{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+
+/* announcement bar */
+.topbar{background:var(--black);color:#fdf5e9;text-align:center;font-size:13.5px;padding:9px 16px;font-weight:400;position:relative;z-index:60}
+.topbar b{color:var(--gold);font-weight:600}
+
+/* nav */
+nav{position:sticky;top:0;left:0;right:0;z-index:55;transition:.35s}
+nav.scrolled{background:rgba(250,247,242,.9);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.nav-in{max-width:1260px;margin:0 auto;padding:14px 40px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:700;font-size:19px;display:inline-flex;align-items:center;gap:9px}
+.brand .logo{height:30px;width:auto;display:inline-block}.brand span{color:var(--teal)}
+.nav-menu{display:flex;gap:28px;align-items:center}
+.nav-menu a{font-size:15px;color:var(--sub);transition:.2s}.nav-menu a:hover{color:var(--ink)}
+.nav-cta{background:var(--teal);color:#fff!important;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:500;transition:.25s}
+.nav-cta:hover{background:var(--teal-d);transform:translateY(-1px)}
+.burger{display:none;font-size:25px;cursor:pointer;background:none;border:none;color:var(--ink)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 28px;border-radius:999px;font-weight:500;font-size:16px;transition:.25s;cursor:pointer;border:none}
+.btn-primary{background:var(--teal);color:#fff}
+.btn-primary:hover{background:var(--teal-d);transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(194,74,107,.5)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--teal);color:var(--teal)}
+
+/* hero carousel (full-bleed rotating background) */
+.hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.3s ease-in-out}
+.hero-bg .slide.active{opacity:1;animation:kb 6.5s ease-out forwards}
+@keyframes kb{from{transform:scale(1.09)}to{transform:scale(1)}}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(15,15,15,.84) 0%,rgba(15,15,15,.55) 46%,rgba(15,15,15,.2) 100%)}
+.hero .wrap{width:100%}
+.hero-content{position:relative;z-index:3;color:#fff;padding:44px 0;max-width:560px}
+.rating-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:7px 15px;font-size:13.5px;margin-bottom:20px;backdrop-filter:blur(6px);color:#fff}
+.rating-chip .st{color:#fff;letter-spacing:1px}
+.hero .eyebrow{color:#e8bdcc}
+.hero h1{font-size:44px;margin:6px 0 20px;color:#fff;text-shadow:0 2px 22px rgba(0,0,0,.28);word-break:keep-all}
+.hero h1 em{font-style:normal;color:#eaa8bc}
+.hero p.lead{font-size:18px;color:#eef3f0;max-width:480px;margin-bottom:30px;text-shadow:0 1px 14px rgba(0,0,0,.32)}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.hero .btn-ghost{color:#fff;border-color:rgba(255,255,255,.6)}
+.hero .btn-ghost:hover{color:#fff;border-color:#fff;background:rgba(255,255,255,.12)}
+.hero-note{font-size:13px;color:#dbe6e0;margin-top:14px}
+.hero-dots{position:absolute;bottom:22px;left:0;right:0;z-index:4;display:flex;gap:9px;justify-content:center}
+.hero-dots button{width:9px;height:9px;border-radius:50%;border:none;background:rgba(255,255,255,.45);cursor:pointer;transition:.25s;padding:0}
+.hero-dots button.on{background:#fff;width:26px;border-radius:6px}
+.slide-hint{position:absolute;right:14px;bottom:50px;z-index:4;font-size:11px;color:rgba(255,255,255,.72);background:rgba(0,0,0,.28);padding:4px 10px;border-radius:8px}
+
+/* placeholder boxes */
+.ph,.phv{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center}
+.ph{background:linear-gradient(135deg,#f6e6ee 0%,#f7ede7 55%,#efe4ec 100%)}
+.phv{background:linear-gradient(135deg,#e7eef0 0%,#efe7ee 100%)}
+.ph::after,.phv::after{content:attr(data-label);font-size:12.5px;color:#9a9184;font-weight:400;padding:12px 16px;line-height:1.5;max-width:82%;border:1px dashed #c9bfae;border-radius:10px;background:rgba(255,255,255,.5)}
+.phv::before{content:"";position:absolute;z-index:2;width:56px;height:56px;top:calc(50% - 60px);left:calc(50% - 28px);background:rgba(255,255,255,.85) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="%232a2623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="7 4 19 12 7 20 7 4"/></svg>') center no-repeat;border-radius:50%;box-shadow:0 8px 20px -8px rgba(0,0,0,.3)}
+
+/* trust strip */
+.trust{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.trust-in{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:26px 0}
+.trust-item{display:flex;gap:12px;align-items:center;justify-content:center;text-align:left}
+.trust-item .i{font-size:24px;color:var(--ink);display:inline-flex;align-items:center}.trust-item .t{font-size:14.5px;font-weight:500;line-height:1.35}
+.trust-item .t small{display:block;color:var(--sub);font-weight:400;font-size:12.5px}
+
+/* awards & patent */
+.awards{background:var(--card);border-bottom:1px solid var(--line)}
+.awards-in{display:flex;justify-content:center;align-items:center;gap:56px;padding:26px 0;flex-wrap:wrap}
+.award{display:flex;align-items:center;gap:15px}
+.iflogo{width:52px;height:52px;border-radius:12px;background:#111;color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center;letter-spacing:-.04em;font-family:'Montserrat',sans-serif;flex:none}
+.iflogo-img{height:50px;width:auto;display:block;flex:none}
+.seal{width:52px;height:52px;display:flex;align-items:center;justify-content:center;color:var(--ink);flex:none}
+.award .a-txt b{display:block;font-size:15.5px;line-height:1.3}
+.award .a-txt span{font-size:12.5px;color:var(--sub)}
+.award-div{width:1px;height:46px;background:var(--line)}
+@media(max-width:700px){.awards-in{gap:20px;flex-direction:column}.award-div{width:120px;height:1px}}
+
+/* section base */
+.sec{padding:92px 0;position:relative}
+.sec-head{max-width:660px;margin:0 auto 52px;text-align:center}
+.sec-head h2{font-size:35px;margin:10px 0 15px}
+.sec-head p{color:var(--sub);font-size:17px}
+.reveal{opacity:0;transform:translateY(26px);transition:.7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* redefine */
+.redefine{background:var(--black);color:#fdf9f3;text-align:center;overflow:hidden}
+.redefine .blob.c{width:420px;height:420px;background:#a24a66;top:-150px;left:-90px;opacity:.3}
+.redefine .inner{position:relative;z-index:2;max-width:720px;margin:0 auto}
+.redefine .eyebrow{color:#e2b1c4}
+.redefine h2{font-size:34px;color:#fff;margin-bottom:18px}
+.redefine h2 u{text-decoration:none;color:var(--teal)}
+.redefine p{color:#e6efe9;font-size:17px}
+
+/* proof (video) */
+.proof-head{text-align:center;max-width:640px;margin:0 auto 44px}
+.proof-vids{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pv-card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.3s}
+.pv-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.pv-card .vid{aspect-ratio:4/3;background:var(--bg2)}
+.pv-card .vid img{width:100%;height:100%;object-fit:cover;display:block}
+.pv-card .cap{padding:18px 20px 22px}
+.pv-card h4{font-size:17px;margin-bottom:5px}
+.pv-card p{font-size:14px;color:var(--sub)}
+
+/* spec */
+.spec{background:var(--bg2)}
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.spec-card{background:transparent;border:none;border-radius:0;padding:6px 30px}
+.spec-card:not(:first-child){border-left:1px solid var(--line)}
+.spec-card h3{font-size:20px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.spec-card h3 .dot{width:10px;height:10px;border-radius:50%;background:var(--teal)}
+.spec-list{list-style:none;display:flex;flex-direction:column;gap:11px}
+.spec-list li{display:flex;justify-content:space-between;font-size:14.5px;border-bottom:1px dashed var(--line);padding-bottom:9px}
+.spec-list li span:first-child{color:var(--sub)}
+.spec-list li b{font-weight:500}
+.spec-note{text-align:center;color:var(--sub);font-size:13px;margin-top:20px}
+.spec-thumb{width:100%;aspect-ratio:4/3;margin-bottom:14px;background:transparent}
+.spec-thumb img{width:100%;height:100%;object-fit:contain;display:block}
+.pcard .img img{width:100%;height:100%;object-fit:contain;display:block}
+.cross .img img{width:100%;height:100%;object-fit:cover;display:block}
+.pcard .img{background:transparent}
+.cross .img{background:var(--bg2)}
+
+/* steps (안심) */
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 22px;text-align:center;position:relative}
+.step .num{font-family:'Montserrat';font-weight:600;color:#fff;background:var(--teal);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:16px}
+.step h4{font-size:16px;margin-bottom:6px}
+.step p{font-size:13.5px;color:var(--sub)}
+/* video embed */
+.video-embed{position:relative;max-width:100%;margin:0 auto 56px;aspect-ratio:16/9;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);background:#111;cursor:pointer}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-embed .yt-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.video-embed .yt-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;background:rgba(194,74,107,.95);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px -8px rgba(0,0,0,.5);transition:.2s}
+.yt-play svg.ic{width:30px;height:30px;stroke-width:2;margin-left:3px}
+.video-embed:hover .yt-play{transform:translate(-50%,-50%) scale(1.08)}
+.video-cap{text-align:center;color:var(--sub);font-size:13.5px;margin-bottom:44px}
+/* addon horizontal card */
+.addon{display:flex;align-items:center;gap:26px;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;max-width:100%;margin:46px auto 0;transition:.3s}
+.addon:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.addon .a-img{flex:none;width:230px;aspect-ratio:1/1;background:var(--bg2)}
+.addon .a-img img{width:100%;height:100%;object-fit:cover;display:block}
+.addon .a-body{padding:22px 30px 22px 6px;flex:1}
+.addon .a-eye{font-family:'Montserrat';font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--coral);font-weight:600;margin-bottom:8px}
+.addon .a-body h3{font-size:20px;margin-bottom:8px}
+.addon .a-body p{color:var(--sub);font-size:14.5px;margin-bottom:16px}
+.addon .a-btn{display:inline-flex;align-items:center;gap:6px;background:var(--teal);color:#fff;padding:11px 22px;border-radius:999px;font-size:14.5px;font-weight:500;transition:.22s}
+.addon .a-btn:hover{background:var(--teal-d)}
+@media(max-width:640px){
+  .addon{flex-direction:column;align-items:stretch}
+  .addon .a-img{width:100%;aspect-ratio:16/10}
+  .addon .a-body{padding:20px 24px 26px}
+}
+
+/* lineup */
+.line{background:var(--bg2)}
+.lineup{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+.pcard{background:var(--card);border-radius:20px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;transition:.3s;position:relative}
+.pcard.best{border-color:var(--gold);box-shadow:0 20px 44px -26px rgba(201,154,82,.6)}
+.pcard:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.pcard .img{aspect-ratio:4/3}
+.pcard .tag{position:absolute;top:14px;left:14px;z-index:3;background:var(--coral);color:#fff;font-size:12px;font-weight:500;padding:5px 12px;border-radius:999px}
+.pcard.best .tag{background:var(--gold)}
+.pcard .pc-body{padding:24px 22px 26px;display:flex;flex-direction:column;flex:1}
+.pcard h3{font-size:22px;margin-bottom:6px}
+.pcard .use{color:var(--teal);font-size:14px;font-weight:500;margin-bottom:12px}
+.pcard .desc{color:var(--sub);font-size:14px;margin-bottom:16px;flex:1}
+.stars{color:var(--coral);font-size:14px;margin-bottom:12px}.stars span{color:var(--sub)}
+.price-row{display:flex;gap:10px;margin-bottom:8px}
+.price-box{flex:1;background:var(--bg2);border-radius:12px;padding:11px 12px;text-align:center}
+.price-box .pl{font-size:12px;color:var(--sub);margin-bottom:2px}
+.price-box .pv{font-size:18px;font-weight:700}.price-box .pv small{font-size:12px;font-weight:400;color:var(--sub)}
+.perday{font-size:12.5px;color:var(--teal);text-align:center;margin-bottom:16px;font-weight:500}
+.buy-row{display:flex;flex-direction:column;gap:8px}
+.buy{text-align:center;padding:12px;border-radius:11px;font-weight:500;font-size:15px;transition:.22s}
+.buy.set{background:var(--teal);color:#fff}.buy.set:hover{background:var(--teal-d)}
+.buy.single{background:#fff;color:var(--ink);border:1.5px solid var(--line)}.buy.single:hover{border-color:var(--teal);color:var(--teal)}
+
+/* crosssell */
+.cross-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.cross{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.3s;text-align:center}
+.cross:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.cross .img{aspect-ratio:1/1}
+.cross .c-body{padding:16px 14px 20px}
+.cross h4{font-size:15px;margin-bottom:3px}
+.cross p{font-size:13px;color:var(--sub)}
+
+/* gift */
+.gift .gift-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:center}
+.gift-visual{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:1/1;background:var(--bg2)}
+.gift-visual img{width:100%;height:100%;object-fit:cover;display:block}
+.gift-tags{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 24px}
+.gtag{background:#f4e5eb;color:var(--teal-d);padding:8px 16px;border-radius:999px;font-size:14px;font-weight:500}
+.gift h2{font-size:33px;margin-bottom:14px}
+.rec{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+.rec-item{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 18px}
+.rec-item .pill{flex:none;font-weight:600;color:var(--teal);font-family:'Montserrat';font-size:15px;min-width:74px}
+.rec-item .t{font-size:14.5px}.rec-item .t b{font-weight:500}
+
+/* event */
+.event{background:linear-gradient(135deg,#1a1614,#332e2b);color:#fdf9f3;overflow:hidden}
+.event .blob.e{width:400px;height:400px;background:#a24a66;bottom:-160px;right:-90px;opacity:.26}
+.event-in{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+.event .eyebrow{color:#e6c4b9}
+.event h2{font-size:33px;color:#fff;margin-bottom:14px}
+.event p.sub{color:#e6efe9;font-size:16px;margin-bottom:24px}
+.event-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:18px;padding:28px 30px;backdrop-filter:blur(4px)}
+.ev-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.18);align-items:flex-start}
+.ev-row:last-child{border-bottom:none}
+.ev-row .k{flex:none;min-width:70px;color:#e8bdcc;font-size:14px;font-weight:500}
+.ev-row .v{font-size:14.5px;color:#fff}
+.hashtag{display:inline-block;margin-top:16px;background:#fff;color:var(--teal-d);font-weight:600;padding:9px 18px;border-radius:999px;font-size:15px}
+.ev-caption{font-size:12px;color:#e6c6d4;margin-top:14px;line-height:1.55}
+
+/* newsletter */
+.news{background:var(--bg2)}
+.news-card{max-width:660px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:46px 44px;text-align:center;box-shadow:var(--shadow)}
+.news-card .eyebrow{color:var(--teal)}
+.news-card h2{font-size:29px;margin:8px 0 12px}
+.news-card .nsub{color:var(--sub);font-size:16px;margin-bottom:26px}
+.news-form{display:flex;flex-direction:column;gap:11px;max-width:420px;margin:0 auto;text-align:left}
+.news-form input[type=text],.news-form input[type=email]{width:100%;padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;font-family:inherit;background:#fff;color:var(--ink);transition:.2s}
+.news-form input::placeholder{color:#b7ad9e}
+.news-form input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(194,74,107,.14)}
+.news-consent{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--sub);margin-top:2px;cursor:pointer}
+.news-consent input{margin-top:3px;flex:none;accent-color:var(--teal)}
+.news-submit{background:var(--teal);color:#fff;border:none;border-radius:12px;padding:15px;font-size:16px;font-weight:500;cursor:pointer;transition:.22s;margin-top:6px}
+.news-submit:hover{background:var(--teal-d);transform:translateY(-1px)}
+.news-note{font-size:12.5px;color:var(--sub);margin-top:16px;line-height:1.6}
+.news-note b{color:var(--teal-d)}
+.news-success{display:none;padding:26px;background:#f4e5eb;border-radius:14px;color:var(--teal-d);font-weight:500;font-size:16px;line-height:1.6}
+.news-card.done .news-form,.news-card.done .nsub{display:none}
+.news-card.done .news-success{display:block}
+@media(max-width:880px){.news-card{padding:34px 22px}.news-card h2{font-size:24px}}
+
+/* ugc */
+.ugc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ugc{aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:var(--bg2)}
+.ugc img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* story */
+.story{text-align:center}
+.story .inner{max-width:720px;margin:0 auto}
+.story h2{font-size:32px;margin-bottom:18px}
+.story p{color:var(--sub);font-size:17px;margin-bottom:14px}
+
+/* final */
+.final{background:var(--bg2);text-align:center}
+.final h2{font-size:36px;margin-bottom:14px}
+.final p{color:var(--sub);font-size:17px;margin-bottom:28px}
+.table-wrap{margin-top:44px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:520px;background:var(--card);border-radius:14px;overflow:hidden}
+th,td{padding:16px 18px;text-align:center;border-bottom:1px solid var(--line)}
+th{background:#efe7db;font-weight:500;color:var(--sub)}
+td:first-child,th:first-child{text-align:left;font-weight:500}
+td .go{color:var(--teal);font-weight:500}
+
+/* sticky buy bar */
+.stickybar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(255,253,250,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);box-shadow:0 -8px 24px -16px rgba(0,0,0,.35);transform:translateY(120%);transition:.4s}
+.stickybar.show{transform:none}
+.sb-in{max-width:1260px;margin:0 auto;padding:12px 40px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.sb-left{font-size:14px}.sb-left b{font-size:16px}
+.sb-left small{color:var(--sub);display:block;font-size:12px}
+.sb-btns{display:flex;gap:10px}
+.sb-btns a{padding:12px 22px;border-radius:999px;font-weight:500;font-size:14.5px}
+.sb-btns .s1{background:var(--teal);color:#fff}
+.sb-btns .s2{border:1.5px solid var(--line);color:var(--ink)}
+
+/* footer */
+footer{background:#1a1614;color:#b7b0a4;padding:48px 0 90px;text-align:center}
+footer .brand{color:#fff;font-size:20px;margin-bottom:8px}
+footer .flink{display:flex;gap:22px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+footer .flink a{color:#cfc8bb;font-size:14px}footer .flink a:hover{color:#fff}
+footer .terms{font-size:12px;color:#8a8378;max-width:760px;margin:16px auto 0;line-height:1.6}
+footer small{font-size:12.5px;color:#7d766b;display:block;margin-top:14px}
+
+@media(max-width:880px){
+  .wrap,.nav-in{padding-left:22px;padding-right:22px}
+  .nav-in{padding-top:12px;padding-bottom:12px}
+  .hero{min-height:auto;padding:34px 0 44px}
+  .hero-content{padding:16px 0}
+  .hero h1{font-size:30px}
+  .hero-overlay{background:linear-gradient(180deg,rgba(15,15,15,.55),rgba(15,15,15,.82))}
+  .slide-hint{display:none}
+  .trust-in{grid-template-columns:1fr 1fr;gap:16px}
+  .proof-vids,.spec-grid,.steps4,.cross-grid,.ugc-grid{grid-template-columns:1fr 1fr}
+  .spec-card{border-left:none;padding:8px 14px}
+  .lineup{grid-template-columns:1fr;max-width:400px;margin:0 auto}
+  .gift .gift-grid,.event-in{grid-template-columns:1fr;gap:30px}
+  .sec{padding:64px 0}.sec-head h2{font-size:27px}
+  .final h2{font-size:26px}
+  .nav-menu{position:fixed;inset:0 0 0 auto;width:76%;max-width:300px;height:100vh;background:var(--bg);flex-direction:column;justify-content:center;gap:24px;transform:translateX(100%);transition:.35s;box-shadow:-10px 0 40px -20px rgba(0,0,0,.3)}
+  .nav-menu.open{transform:none}.burger{display:block;z-index:60}
+  .sb-in{padding:10px 20px}.sb-left small{display:none}.sb-btns .s2{display:none}
+}
+@media(max-width:520px){
+  .steps4,.cross-grid,.ugc-grid,.proof-vids,.spec-grid{grid-template-columns:1fr}
+  .trust-in{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP ANNOUNCEMENT (희소성) -->
+<div class="topbar"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" style="vertical-align:-2px;margin-right:3px"><path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5A2 2 0 0 0 15.5 9.94l6.14 1.58a.5.5 0 0 1 0 .96L15.5 14.06a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z"/></svg><b>출시 기념 한정</b> · 포토리뷰 작성 시 <b>커피 쿠폰</b> 증정 &nbsp;|&nbsp; 뉴스레터 신청 후 구매 시 <b>무지 속지 10장 추가</b> <span style="color:#d9c7cf">(~2026.12.31)</span></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#top" class="brand"><img class="logo" src="https://lh3.googleusercontent.com/d/1Ygkknn5O7JggxoaOUOnFHK2tzS8DLiP5=w400" alt="아트에이블" onerror="this.replaceWith(document.createTextNode('아트에이블'))"> <span>·</span> 수채화다이어리</a>
+    <button class="burger" id="burger" aria-label="menu">☰</button>
+    <div class="nav-menu" id="menu">
+      <a href="#proof">종이</a>
+      <a href="#lineup">3종 비교</a>
+      <a href="#gift">선물</a>
+      <a href="#event">이벤트</a>
+      <a class="nav-cta" data-store href="https://smartstore.naver.com/funnyshow/category/714d82d2a9ef4ae28978addccee34e25?cp=1">스마트스토어 →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <!-- [배경 슬라이드 교체] 각 .slide 의 background-image를 실제 제품/작업 사진으로 바꾸세요.
+       예: style="background-image:url('images/basic-outdoor.jpg')"  (지금은 예시 워터컬러 그라데이션) -->
+  <div class="hero-bg" id="heroBg">
+    <div class="slide" style="background-image:url('https://lh3.googleusercontent.com/d/1mnys2cViDN9GEppHI9J3Dz_cTOFsR2T5=w2000')"></div>
+    <div class="slide" style="background-image:url('https://lh3.googleusercontent.com/d/1RJqZdYJ_USmyzvbMxvzkoI6EFRKv8BRE=w2000')"></div>
+    <div class="slide" style="background-image:url('https://lh3.googleusercontent.com/d/1VNTEMnxGLdhuwZJepBd1xbBuTmyXqm-L=w2000')"></div>
+    <div class="slide" style="background-image:url('https://lh3.googleusercontent.com/d/1nNwc9V2AjgLjZVjpg2y6tfb0cBkHF4yM=w2000')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="rating-chip"><span class="st">★★★★★</span> 실구매 리뷰 · 만족도 최상</div>
+      <p class="eyebrow">Artable Watercolor Diary</p>
+      <h1>쓰는 다이어리는 많습니다.<br><em>그릴 수 있는</em> 다이어리는 드뭅니다.</h1>
+      <p class="lead">물이 번지고 발색이 살아나는 수채화 전용지,
+        여기에 팔레트와 컬러링북까지 한 권에 담았어요. 오늘의 색을 그대로 남기는 다이어리예요.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" data-store href="https://smartstore.naver.com/funnyshow/category/714d82d2a9ef4ae28978addccee34e25?cp=1">스마트스토어에서 구매 →</a>
+        <a class="btn btn-ghost" href="#lineup">3종 비교</a>
+      </div>
+      <p class="hero-note">250g 수채화 전용지 · 컬러링북 세트 · 팔레트 일체형 · 리필 가능</p>
+    </div>
+  </div>
+  <div class="hero-dots" id="heroDots"></div>
+</header>
+
+<!-- TRUST STRIP (스펙 요약) -->
+<div class="trust">
+  <div class="wrap trust-in">
+    <div class="trust-item reveal"><span class="i"><svg class="ic" width="26" height="26" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m2.6 12.08 8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9"/><path d="m2.6 16.08 8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9"/></svg></span><span class="t">250g 수채화 전용지<small>번짐·발색 특화</small></span></div>
+    <div class="trust-item reveal"><span class="i"><svg class="ic" width="26" height="26" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span><span class="t">컬러링북 세트<small>초보도 바로 시작 가능</small></span></div>
+    <div class="trust-item reveal"><span class="i"><svg class="ic" width="26" height="26" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".7" fill="currentColor" stroke="none"/><circle cx="17.5" cy="10.5" r=".7" fill="currentColor" stroke="none"/><circle cx="8.5" cy="7.5" r=".7" fill="currentColor" stroke="none"/><circle cx="6.5" cy="12.5" r=".7" fill="currentColor" stroke="none"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.83-.44-1.12-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.56-2.5 5.56-5.55C22 6.01 17.5 2 12 2z"/></svg></span><span class="t">팔레트 일체형<small>팔레트가 한 권에</small></span></div>
+    <div class="trust-item reveal"><span class="i"><svg class="ic" width="26" height="26" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></span><span class="t">리필 바인더<small>속지 교체로 계속</small></span></div>
+  </div>
+</div>
+
+<!-- AWARDS & PATENT (수상·특허 어필) -->
+<!-- ※ 수상 연도·어워드 부문·특허번호는 실제 정보로 반드시 교체하세요. -->
+<div class="awards">
+  <div class="wrap awards-in">
+    <div class="award reveal">
+      <img class="iflogo-img" src="https://lh3.googleusercontent.com/d/14hya_EV45EDp64qUghP1TIRjRjCssayt=w400" alt="iF DESIGN AWARD 2024" onerror="this.style.display='none'">
+      <div class="a-txt"><b>iF 디자인 어워드 수상</b><span>세계 3대 디자인 어워드 · 2024</span></div>
+    </div>
+    <div class="award-div"></div>
+    <div class="award reveal">
+      <span class="seal"><svg class="ic" width="34" height="34" viewBox="0 0 24 24"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg></span>
+      <div class="a-txt"><b>바인더형 팔레트 특허</b><span>국내 특허 10-2369558 · 미국 특허 US 11,511,563</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- REDEFINE (카테고리 재정의) -->
+<section class="sec redefine">
+  <div class="blob c"></div>
+  <div class="wrap inner reveal">
+    <p class="eyebrow">Not just a diary</p>
+    <h2>"다이어리인가요?"<br>아니요, 펼치면 <u>아뜰리에</u>입니다.</h2>
+    <p>일반 다이어리엔 물감을 칠할 수 없습니다. 번지고, 우글거리고, 뒷장에 배니까요.
+      아트에이블 수채화다이어리는 처음부터 '그리기 위해' 설계됐습니다.
+      가방에서 꺼내 펼치는 순간, 그 자리가 곧 아뜰리에가 됩니다.</p>
+  </div>
+</section>
+
+<!-- PROOF (증명 · 영상) -->
+<section class="sec" id="proof">
+  <div class="wrap">
+    <div class="proof-head reveal">
+      <p class="eyebrow">See it, don't just read it</p>
+      <h2 style="font-size:34px;margin:8px 0 14px">종이가 다르면, 눈으로 보입니다</h2>
+      <p class="muted" style="font-size:17px">말보다 눈으로 확인하세요. 아래 세 장면에 이 다이어리의 핵심이 담겨 있어요.</p>
+    </div>
+    <div class="proof-vids">
+      <div class="pv-card reveal">
+        <div class="vid"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1-akrmT7ALkTwsaU4qukSL53F60DAM7VW=w1000" alt="고운 발색" onerror="this.style.display='none'"></div>
+        <div class="cap"><h4>고운 발색</h4><p>안료가 맑게 퍼져, 처음 칠해도 근사한 그림이 돼요.</p></div>
+      </div>
+      <div class="pv-card reveal">
+        <div class="vid"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1YVGVy0XficSngqNoz2ZFORT0z5zFltbQ=w1000" alt="250g 두꺼운 전용지" onerror="this.style.display='none'"></div>
+        <div class="cap"><h4>250g 두꺼운 전용지</h4><p>컬러링북과 내지 모두 250g 이상 수채화 전용지예요.</p></div>
+      </div>
+      <div class="pv-card reveal">
+        <div class="vid"><img loading="lazy" src="https://lh3.googleusercontent.com/d/14CZoyv1h_xlqhz8dS6O24MK5f1QLkDum=w1000" alt="뒷비침 없음" onerror="this.style.display='none'"></div>
+        <div class="cap"><h4>뒷비침 없음</h4><p>두껍고 물에 강한 종이라, 앞장에 칠해도 뒤가 비치지 않아요.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEC (스펙 시각화) -->
+<section class="sec spec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Specifications</p>
+      <h2>숫자로 확인하는 3종</h2>
+      <p>크기·용지·구성을 한눈에 비교해 보고 고르세요.</p>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-card reveal">
+        <div class="spec-thumb"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1ILvZUYYeIl5xKnaiiuZM7KRk6X5kfg_z=w1000" alt="슬림형" onerror="this.style.display='none'"></div>
+        <h3><span class="dot"></span>슬림형</h3>
+        <ul class="spec-list">
+          <li><span>사이즈</span><b>149 × 212 mm</b></li>
+          <li><span>용지</span><b>수채화 전용지 250g 이상</b></li>
+          <li><span>구성</span><b>(단품) 팔레트 · (세트) 팔레트+바인더+워터브러시+내지</b></li>
+          <li><span>무게</span><b>가장 가벼움</b></li>
+          <li><span>추천</span><b>입문 · 데일리 휴대</b></li>
+        </ul>
+      </div>
+      <div class="spec-card reveal">
+        <div class="spec-thumb"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1DZfgyAImr1RTkvQacCI49xzYoWxxPlN4=w1000" alt="미니" onerror="this.style.display='none'"></div>
+        <h3><span class="dot"></span>미니</h3>
+        <ul class="spec-list">
+          <li><span>사이즈</span><b>112 × 176 mm</b></li>
+          <li><span>용지</span><b>수채화 전용지 250g 이상</b></li>
+          <li><span>구성</span><b>(단품) 팔레트 · (세트) 팔레트+바인더+워터브러시+내지</b></li>
+          <li><span>무게</span><b>포켓 사이즈</b></li>
+          <li><span>추천</span><b>여행 · 포켓 스케치</b></li>
+        </ul>
+      </div>
+      <div class="spec-card reveal">
+        <div class="spec-thumb"><img loading="lazy" src="https://lh3.googleusercontent.com/d/15ToNlbi-9cikhV1UkybNBrbXTMucUjiR=w1000" alt="기본형" onerror="this.style.display='none'"></div>
+        <h3><span class="dot"></span>기본형</h3>
+        <ul class="spec-list">
+          <li><span>사이즈</span><b>149 × 212 mm</b></li>
+          <li><span>용지</span><b>수채화 전용지 250g 이상</b></li>
+          <li><span>구성</span><b>(단품) 팔레트 · (세트) 팔레트+바인더+워터브러시+내지</b></li>
+          <li><span>무게</span><b>가장 넉넉</b></li>
+          <li><span>추천</span><b>집·작업실 데일리 · 선물</b></li>
+        </ul>
+      </div>
+    </div>
+    <p class="spec-note">· 물감은 포함되지 않습니다. 원하는 튜브형 수채화 물감을 팔레트에 채우고, 일주일 정도 말린 뒤 사용하세요.</p>
+  </div>
+</section>
+
+<!-- STEPS (처음이어도 괜찮아요) -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Beginner friendly</p>
+      <h2>수채화가 처음이어도 괜찮아요</h2>
+      <p>밑그림이 그려진 <b>컬러링북</b>이 들어 있어, 색만 칠하면 됩니다.
+        "잘 못 그리는데…" 걱정하지 마세요. 이 네 단계면 오늘 첫 장을 채울 수 있어요.</p>
+    </div>
+    <div class="video-embed reveal" id="ytFacade" data-id="J-MRQOqEuis" role="button" aria-label="영상 재생">
+      <img class="yt-poster" src="https://img.youtube.com/vi/J-MRQOqEuis/maxresdefault.jpg" alt="영상 미리보기"
+        onerror="this.onerror=null;this.src='https://img.youtube.com/vi/J-MRQOqEuis/hqdefault.jpg'">
+      <span class="yt-play"><svg class="ic" width="30" height="30" viewBox="0 0 24 24"><polygon points="7 4 19 12 7 20 7 4"/></svg></span>
+    </div>
+    <div class="steps4">
+      <div class="step reveal"><div class="num">1</div><h4>물 묻히기</h4><p>붓에 물을 살짝 묻혀요.<br>물 양 조절부터가 시작이에요.</p></div>
+      <div class="step reveal"><div class="num">2</div><h4>색 풀기</h4><p>팔레트에서 원하는 색을<br>붓으로 톡톡 풀어요.</p></div>
+      <div class="step reveal"><div class="num">3</div><h4>칠하기</h4><p>전용지 위에 슥 칠해요.<br>번짐이 알아서 예뻐져요.</p></div>
+      <div class="step reveal"><div class="num">4</div><h4>마르면 완성</h4><p>오늘의 색이<br>다이어리 한 장으로 남아요.</p></div>
+    </div>
+
+    <!-- 추가 상품 (가로형) — 제목/설명은 실제 상품명으로 수정하세요 -->
+    <a class="addon reveal" href="https://smartstore.naver.com/funnyshow/products/7499906259">
+      <div class="a-img"><img loading="lazy" src="https://drive.google.com/thumbnail?id=1SAGr3z0m9iDncBg9-B0PjT3BAwgnocKe&sz=w1000" alt="추가 상품" onerror="this.style.display='none'"></div>
+      <div class="a-body">
+        <div class="a-eye">함께 보면 좋아요 · 추가 상품</div>
+        <h3>아트에이블 추천 상품</h3>
+        <p>수채화다이어리와 잘 어울리는 상품이에요. 자세한 구성은 스마트스토어에서 확인해 주세요.</p>
+        <span class="a-btn">스마트스토어에서 보기 →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- LINEUP (3종 · 가격 · 개당 이득) -->
+<section class="sec line" id="lineup">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Choose your size</p>
+      <h2>크기보다 쓰임새로 고르세요</h2>
+      <p>세트에는 팔레트·바인더·워터브러시·내지가 모두 포함되고, 단품은 팔레트만 제공돼요. (물감 비포함)</p>
+    </div>
+    <div class="lineup">
+
+      <!-- 슬림형 -->
+      <div class="pcard reveal">
+        <span class="tag">입문 · 가장 가벼움</span>
+        <div class="img"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1kstg16avEDShOKyWNcrg7vj5EZr1NmXT=w1000" alt="슬림형 수채화다이어리" onerror="this.style.display='none'"></div>
+        <div class="pc-body">
+          <h3>슬림형</h3>
+          <div class="use">가방에 쏙, 카페에서 한 컷</div>
+          <p class="desc">가장 얇고 가벼워 매일 들고 다니기 좋아요. 수채화가 처음이라면 부담 없이 시작할 수 있어요.</p>
+          <div class="price-row">
+            <div class="price-box"><div class="pl">단품</div><div class="pv">17,000<small>원</small></div></div>
+            <div class="price-box"><div class="pl">세트</div><div class="pv">29,000<small>원</small></div></div>
+          </div>
+          <p class="perday">세트로 풀구성까지 · 커피 두 잔 값으로 취미 시작</p>
+          <div class="buy-row">
+            <a class="buy set" data-buy="슬림형세트" href="https://smartstore.naver.com/funnyshow/products/8400083200">세트 구매하기</a>
+            <a class="buy single" data-buy="슬림형단품" href="https://smartstore.naver.com/funnyshow/products/8274332051">단품 구매하기</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 미니 (BEST) -->
+      <div class="pcard best reveal">
+        <span class="tag">BEST · 여행용</span>
+        <div class="img"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1uynQvI6S3l12gKy0pJ6GRiW5fkhuRJHH=w1000" alt="미니 수채화다이어리" onerror="this.style.display='none'"></div>
+        <div class="pc-body">
+          <h3>미니</h3>
+          <div class="use">여행·포켓 스케치</div>
+          <p class="desc">주머니에 들어가는 포켓 사이즈예요. 여행지에서 바로 그 풍경을 담기 좋아요.</p>
+          <div class="price-row">
+            <div class="price-box"><div class="pl">단품</div><div class="pv">22,000<small>원</small></div></div>
+            <div class="price-box"><div class="pl">세트</div><div class="pv">37,500<small>원</small></div></div>
+          </div>
+          <p class="perday">여행에 가장 인기 · 세트로 바로 시작</p>
+          <div class="buy-row">
+            <a class="buy set" data-buy="미니세트" href="https://smartstore.naver.com/funnyshow/products/10820050895">세트 구매하기</a>
+            <a class="buy single" data-buy="미니단품" href="https://smartstore.naver.com/funnyshow/products/10823709566">단품 구매하기</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 기본형 -->
+      <div class="pcard reveal">
+        <span class="tag">풀세트 · 선물 추천</span>
+        <div class="img"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1oNYVnawC59cq1yfN1K1fd3iekJ53TiiE=w1000" alt="기본형 수채화다이어리" onerror="this.style.display='none'"></div>
+        <div class="pc-body">
+          <h3>기본형</h3>
+          <div class="use">집·작업실에서 제대로</div>
+          <p class="desc">가장 넉넉한 크기예요. 팔레트와 다이어리를 갖춘 풀세트라 선물로 가장 인기가 많아요.</p>
+          <div class="price-row">
+            <div class="price-box"><div class="pl">단품</div><div class="pv">35,000<small>원</small></div></div>
+            <div class="price-box"><div class="pl">세트</div><div class="pv">60,000<small>원</small></div></div>
+          </div>
+          <p class="perday">제대로 챙기는 선물 · 풀세트 구성</p>
+          <div class="buy-row">
+            <a class="buy set" data-buy="기본형세트" href="https://smartstore.naver.com/funnyshow/products/9062371698">세트 구매하기</a>
+            <a class="buy single" data-buy="기본형단품" href="https://smartstore.naver.com/funnyshow/products/7666207588">단품 구매하기</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CROSS-SELL (함께하면 좋아요) -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Better together</p>
+      <h2>이것도 함께하면 좋아요</h2>
+      <p>리필과 도구까지 함께 준비하면 더 오래, 편하게 쓸 수 있어요. (선물이라면 리필까지 추천해요!)</p>
+    </div>
+    <div class="cross-grid">
+      <a class="cross reveal" data-buy="추가바인더" href="https://smartstore.naver.com/funnyshow/category/714d82d2a9ef4ae28978addccee34e25?cp=1">
+        <div class="img"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1Wv0Ag_vskghUoIs2BitOPpcDc5g9JVy5=w800" alt="추가 바인더" onerror="this.style.display='none'"></div>
+        <div class="c-body"><h4>추가 바인더</h4><p>속지를 끼워 더 오래 쓰는 여분 바인더</p></div></a>
+      <a class="cross reveal" data-buy="에코백" href="https://smartstore.naver.com/funnyshow/category/714d82d2a9ef4ae28978addccee34e25?cp=1">
+        <div class="img"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1hLgYKdSFi8kwg0ATvcsvlMSTuKoe9SXJ=w800" alt="에코백" onerror="this.style.display='none'"></div>
+        <div class="c-body"><h4>에코백</h4><p>어디든 들고 다니는 감성 에코백</p></div></a>
+      <a class="cross reveal" data-buy="접이식물통" href="https://smartstore.naver.com/funnyshow/category/714d82d2a9ef4ae28978addccee34e25?cp=1">
+        <div class="img"><img loading="lazy" src="https://lh3.googleusercontent.com/d/12CekdCpSQZrfeMtOq0HNzRXFdM-IqUrB=w800" alt="접이식 물통" onerror="this.style.display='none'"></div>
+        <div class="c-body"><h4>접이식 물통</h4><p>접어서 보관, 휴대 간편한 물통</p></div></a>
+      <a class="cross reveal" data-buy="추가상품" href="https://smartstore.naver.com/funnyshow/category/714d82d2a9ef4ae28978addccee34e25?cp=1">
+        <div class="img"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1xDAOQJI6Qgg51DwrVRHoX-xEvuM_QKMT=w800" alt="추가 상품" onerror="this.style.display='none'"></div>
+        <div class="c-body"><h4>추가 상품</h4><p>함께하면 좋은 아이템</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- GIFT -->
+<section class="sec gift" id="gift">
+  <div class="wrap gift-grid">
+    <div class="reveal gift-visual">
+      <img loading="lazy" src="https://lh3.googleusercontent.com/d/10kF-iuw18hrpXt1zPvCvtVWTT2iVvUeu=w1000" alt="선물 무드컷" onerror="this.style.display='none'">
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">A gift for anyone</p>
+      <h2>취미 하나를 선물하는 일</h2>
+      <p class="muted" style="font-size:17px">물건이 아니라 '시간'을 선물해요. 받는 사람이 첫 장을 칠하는 순간부터
+        선물은 계속 이어져요. 그래서 남녀노소 누구에게나 잘 어울려요.</p>
+      <div class="gift-tags">
+        <span class="gtag">생일 선물</span><span class="gtag">집들이</span><span class="gtag">기념일</span>
+        <span class="gtag">스승의 날</span><span class="gtag">취미 입문</span><span class="gtag">감성 답례품</span>
+      </div>
+      <div class="rec">
+        <div class="rec-item"><span class="pill">2만원대</span><span class="t"><b>부담 없이 마음만</b> — 슬림형 세트 · 미니 단품</span></div>
+        <div class="rec-item"><span class="pill">3만원대</span><span class="t"><b>가장 무난한 선물</b> — 미니 세트 · 기본형 단품</span></div>
+        <div class="rec-item"><span class="pill">6만원</span><span class="t"><b>제대로 챙기는 마음</b> — 기본형 풀세트</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT (JCB식 리뷰 이벤트) -->
+<section class="sec event" id="event">
+  <div class="blob e"></div>
+  <div class="wrap event-in">
+    <div class="reveal">
+      <p class="eyebrow">Launch event</p>
+      <h2>첫 장을 함께 나눠요</h2>
+      <p class="sub">출시 기념으로, 지금 함께해 주시는 분들께 두 가지 혜택을 드려요.
+        커피 한 잔의 여유와, 더 오래 그릴 수 있는 속지까지.</p>
+      <span class="hashtag"># 하루한장챌린지</span>
+      <p class="ev-caption">※ <b>무지 속지 10장 추가</b>는 주문 시 배송메시지에 '<b>뉴스레터신청</b>'을 남겨주신 분에 한해 함께 발송됩니다.
+        (미기재 시 증정 불가) · 혜택 기간 ~2026.12.31</p>
+    </div>
+    <div class="reveal event-card">
+      <div class="ev-row"><span class="k">혜택 ①</span><span class="v"><b>포토리뷰</b> 작성 시 · <b>커피 쿠폰</b> 증정</span></div>
+      <div class="ev-row"><span class="k">혜택 ②</span><span class="v"><b>뉴스레터 신청</b> 후 제품 구매 시 · <b>무지 속지 10장</b> 추가</span></div>
+      <div class="ev-row"><span class="k">필수조건</span><span class="v">주문서 배송메시지에 <b>'뉴스레터신청'</b> 기재 (미기재 시 증정 불가)</span></div>
+      <div class="ev-row"><span class="k">기간</span><span class="v">~ 2026. 12. 31</span></div>
+      <div class="ev-row"><span class="k">참여</span><span class="v">스마트스토어에서 구매 · 인스타 <b>#하루한장챌린지</b> 공유 환영</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="sec news" id="newsletter">
+  <div class="wrap">
+    <div class="news-card reveal">
+      <p class="eyebrow">Newsletter</p>
+      <h2>뉴스레터 신청하고 혜택 받기</h2>
+      <p class="nsub">신제품 소식과 할인, 수채화 팁을 이메일로 보내드려요.
+        지금 신청하면 구매 시 <b>무지 속지 10장</b> 혜택도 챙기실 수 있어요.</p>
+      <!-- [수집 연결] 아래 ENDPOINT 에 Google Apps Script 웹앱 URL을 넣으면 구글 시트에 저장됩니다. (아래 안내 참고) -->
+      <form class="news-form" id="newsForm" novalidate>
+        <input type="text" name="name" placeholder="이름 (선택)" autocomplete="name">
+        <input type="email" name="email" placeholder="이메일 주소 *" autocomplete="email" required>
+        <label class="news-consent"><input type="checkbox" name="consent" required> 개인정보 수집·이용에 동의합니다. (뉴스레터 발송 목적, 언제든 수신거부 가능)</label>
+        <button class="news-submit" type="submit">뉴스레터 신청하기 →</button>
+      </form>
+      <div class="news-success"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" style="vertical-align:-3px;margin-right:5px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>신청이 완료되었어요! 소식과 혜택을 이메일로 보내드릴게요.</div>
+      <p class="news-note">※ 구매 시 <b>무지 속지 10장</b> 혜택은 주문서 배송메시지에 <b>'뉴스레터신청'</b>을 남겨주셔야 적용됩니다. · 혜택 기간 ~2026.12.31</p>
+    </div>
+  </div>
+</section>
+
+<!-- UGC 갤러리 -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">From our customers</p>
+      <h2>이렇게들 그리고 계세요</h2>
+      <p>실제 사용자분들이 다이어리에 남긴 하루하루예요.</p>
+    </div>
+    <div class="ugc-grid">
+      <div class="ugc reveal"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1v1NH6ihDuFWmbeLbtTbmf5MN-wFQu8bM=w1000" alt="사용자 그림 1" onerror="this.style.display='none'"></div>
+      <div class="ugc reveal"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1zsrQCfp3BZPLdCZ2isHYH8diIlImTNev=w1000" alt="사용자 그림 2" onerror="this.style.display='none'"></div>
+      <div class="ugc reveal"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1Ks43GMAqzEqNr4WIJTHbt9kALXFqJtKM=w1000" alt="사용자 그림 3" onerror="this.style.display='none'"></div>
+      <div class="ugc reveal"><img loading="lazy" src="https://lh3.googleusercontent.com/d/1HViAczubj4H--BUesap4-V0-TL4SgmWa=w1000" alt="사용자 그림 4" onerror="this.style.display='none'"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="sec story">
+  <div class="wrap inner reveal">
+    <p class="eyebrow">Made by Artable</p>
+    <h2>아트에이블이 만든 다이어리</h2>
+    <p>문구가 아니라 '작품을 담는 도구'로 시작했습니다. 그림 그리는 사람이 직접 쓰고 싶은 종이,
+      매일 펼치고 싶은 구성을 고민했습니다.</p>
+    <p>수채화다이어리는 그렇게 태어난, 취미와 일상 사이의 다리입니다.
+      오늘 하루의 색을 남기는 가장 다정한 방법이 되기를 바랍니다.</p>
+    <a class="btn btn-primary" data-store href="https://smartstore.naver.com/funnyshow/category/714d82d2a9ef4ae28978addccee34e25?cp=1" style="margin-top:22px">스마트스토어에서 전체 보기 →</a>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="sec final">
+  <div class="wrap reveal">
+    <p class="eyebrow">Lineup &amp; price</p>
+    <h2>오늘, 첫 장을 시작해보세요</h2>
+    <p>원하는 구성을 골라 스마트스토어에서 바로 만나 보세요.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>제품</th><th>단품</th><th>세트</th><th>바로가기</th></tr></thead>
+        <tbody>
+          <tr><td>슬림형 <span class="muted" style="font-size:13px">· 입문/휴대</span></td><td>17,000원</td><td>29,000원</td><td><a class="go" data-buy="슬림형세트" href="https://smartstore.naver.com/funnyshow/products/8400083200">구매 →</a></td></tr>
+          <tr><td>미니 <span class="muted" style="font-size:13px">· 여행/포켓</span></td><td>22,000원</td><td>37,500원</td><td><a class="go" data-buy="미니세트" href="https://smartstore.naver.com/funnyshow/products/10820050895">구매 →</a></td></tr>
+          <tr><td>기본형 <span class="muted" style="font-size:13px">· 데일리/선물</span></td><td>35,000원</td><td>60,000원</td><td><a class="go" data-buy="기본형세트" href="https://smartstore.naver.com/funnyshow/products/9062371698">구매 →</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="brand">아트에이블 수채화다이어리</div>
+    <p style="font-size:14px">하루 한 장, 오늘을 물감으로.</p>
+    <div class="flink">
+      <a data-store href="https://smartstore.naver.com/funnyshow/category/714d82d2a9ef4ae28978addccee34e25?cp=1">스마트스토어</a>
+      <a href="#lineup">3종 비교</a><a href="#gift">선물 가이드</a><a href="#event">이벤트</a><a href="#top">맨 위로</a>
+    </div>
+    <p class="terms">※ 물감은 포함되지 않습니다. 원하는 튜브형 수채화 물감을 팔레트에 채워 일주일 정도 말린 뒤 사용하세요.
+      제품 이미지는 Google Drive에 연결돼 있어, 폴더를 '링크가 있는 모든 사용자'로 공유해야 정상 표시됩니다. 결제는 스마트스토어(네이버페이)에서 진행됩니다.</p>
+    <small>© Artable. All rights reserved.</small>
+  </div>
+</footer>
+
+<!-- STICKY BUY BAR -->
+<div class="stickybar" id="stickybar">
+  <div class="sb-in">
+    <div class="sb-left"><b>아트에이블 수채화다이어리</b><small>슬림 17,000원~ · 풀구성 세트 29,000원~</small></div>
+    <div class="sb-btns">
+      <a class="s2" href="#lineup">3종 비교</a>
+      <a class="s1" data-store href="https://smartstore.naver.com/funnyshow/category/714d82d2a9ef4ae28978addccee34e25?cp=1">스마트스토어 구매 →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const nav=document.getElementById('nav'),bar=document.getElementById('stickybar');
+addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>30);
+  bar.classList.toggle('show',scrollY>640);
+});
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>menu.classList.toggle('open'));
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// hero background carousel
+const slides=[...document.querySelectorAll('#heroBg .slide')];
+const dotsWrap=document.getElementById('heroDots');
+let ci=0, timer;
+slides.forEach((s,i)=>{const btn=document.createElement('button');if(i===0)btn.className='on';btn.setAttribute('aria-label','슬라이드 '+(i+1));btn.addEventListener('click',()=>{go(i);restart();});dotsWrap.appendChild(btn);});
+const dots=[...dotsWrap.children];
+slides[0].classList.add('active');
+function go(i){slides[ci].classList.remove('active');dots[ci].classList.remove('on');ci=i;slides[ci].classList.add('active');dots[ci].classList.add('on');}
+function next(){go((ci+1)%slides.length);}
+function restart(){clearInterval(timer);timer=setInterval(next,4500);}
+restart();
+
+// youtube — 썸네일+재생버튼만 노출, 클릭 시 유튜브에서 열기 (임베드 미시도 → 오류 153 방지)
+const fac=document.getElementById('ytFacade');
+if(fac){
+  const id=fac.dataset.id;
+  fac.style.cursor='pointer';
+  fac.setAttribute('role','link');
+  fac.setAttribute('aria-label','YouTube에서 영상 보기');
+  fac.addEventListener('click',()=>{ window.open('https://www.youtube.com/watch?v='+id,'_blank','noopener'); });
+}
+
+// newsletter form
+const newsForm=document.getElementById('newsForm');
+if(newsForm) newsForm.addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const email=newsForm.email.value.trim();
+  const consent=newsForm.consent.checked;
+  if(!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ newsForm.email.focus(); newsForm.email.style.borderColor='#c1786a'; return; }
+  if(!consent){ alert('개인정보 수집·이용에 동의해 주세요.'); return; }
+  // [수집 연결] Google Apps Script 웹앱 URL을 넣으면 구글 시트에 저장됩니다.
+  const ENDPOINT='';
+  if(ENDPOINT){
+    const data=new FormData(newsForm);
+    fetch(ENDPOINT,{method:'POST',mode:'no-cors',body:data}).catch(()=>{});
+  }
+  newsForm.closest('.news-card').classList.add('done');
+});
+</script>
+</body>
+</html>
