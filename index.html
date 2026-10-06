@@ -851,7 +851,7 @@ if(newsForm) newsForm.addEventListener('submit',(e)=>{
   if(!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ newsForm.email.focus(); newsForm.email.style.borderColor='#c1786a'; return; }
   if(!consent){ alert('개인정보 수집·이용에 동의해 주세요.'); return; }
   // [수집 연결] Google Apps Script 웹앱 URL을 넣으면 구글 시트에 저장됩니다.
-  const ENDPOINT='';
+  const ENDPOINT='https://script.google.com/macros/s/AKfycbxzm_5f-65zIx84Ee5rTMNk7XlO3OTNzkUPQ3r0NPMhJRf-D_SELe2uHa_kFbflmTc2/exec';
   if(ENDPOINT){
     const data=new URLSearchParams(new FormData(newsForm));
     data.append('source', location.href);
