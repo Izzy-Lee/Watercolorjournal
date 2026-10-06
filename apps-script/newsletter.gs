@@ -1,14 +1,11 @@
 /**
- * 아트에이블 수채화다이어리 — 뉴스레터 신청 → 구글 시트 저장
+ * 아트에이블 수채화다이어리 — 뉴스레터 신청 → 구글 시트 저장 (v2)
  *
- * 설치 방법
- * 1) 새 구글 스프레드시트를 만든다 (예: "수채화다이어리 뉴스레터")
- * 2) 메뉴 [확장 프로그램] > [Apps Script] 에 이 코드를 통째로 붙여넣고 저장
- * 3) [배포] > [새 배포] > 유형 '웹 앱'
- *      - 다음 사용자 인증 정보로 실행: 나
- *      - 액세스 권한이 있는 사용자: 모든 사용자
- * 4) 권한 승인 후 나오는 웹 앱 URL(https://script.google.com/macros/s/.../exec)을
- *    index.html 의 const ENDPOINT='' 에 넣는다
+ * 시트에서 [확장 프로그램 > Apps Script]로 만든 경우: 그 시트에 저장
+ * script.google.com에서 따로 만든 경우: 저장용 시트를 자동으로 만들어 그곳에 저장
+ *   → 웹 앱 주소를 브라우저로 열면 저장 중인 시트 주소(sheetUrl)가 보입니다.
+ *
+ * 코드 수정 후에는 [배포 > 배포 관리 > 연필 > 버전: 새 버전 > 배포] (주소 유지)
  */
 
 const SHEET_NAME = '신청자';
@@ -18,9 +15,12 @@ function doPost(e) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    const p = (e && e.parameter) || {};
+    const p = params_(e);
     const email = String(p.email || '').trim().toLowerCase();
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: 'invalid email' });
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      console.warn('invalid email', JSON.stringify(p));
+      return json({ ok: false, error: 'invalid email' });
+    }
 
     const sheet = getSheet_();
     const last = sheet.getLastRow();
@@ -37,17 +37,54 @@ function doPost(e) {
       String(p.source || '')
     ]);
     return json({ ok: true });
+  } catch (err) {
+    console.error(err && err.stack || err);
+    return json({ ok: false, error: String(err) });
   } finally {
     lock.releaseLock();
   }
 }
 
 function doGet() {
-  return json({ ok: true, message: 'newsletter endpoint alive' });
+  try {
+    return json({ ok: true, message: 'newsletter endpoint alive', sheetUrl: getSpreadsheet_().getUrl() });
+  } catch (err) {
+    return json({ ok: false, error: String(err) });
+  }
+}
+
+// e.parameter가 비어 있으면 본문을 직접 해석
+function params_(e) {
+  const p = Object.assign({}, (e && e.parameter) || {});
+  if (!p.email && e && e.postData && e.postData.contents) {
+    const body = e.postData.contents;
+    try {
+      Object.assign(p, JSON.parse(body));
+    } catch (_) {
+      body.split('&').forEach(function (kv) {
+        const i = kv.indexOf('=');
+        if (i < 0) return;
+        const k = decodeURIComponent(kv.slice(0, i).replace(/\+/g, ' '));
+        p[k] = decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' '));
+      });
+    }
+  }
+  return p;
+}
+
+function getSpreadsheet_() {
+  const active = SpreadsheetApp.getActiveSpreadsheet();
+  if (active) return active;
+  const props = PropertiesService.getScriptProperties();
+  const id = props.getProperty('SHEET_ID');
+  if (id) return SpreadsheetApp.openById(id);
+  const ss = SpreadsheetApp.create('수채화다이어리 뉴스레터 신청자');
+  props.setProperty('SHEET_ID', ss.getId());
+  return ss;
 }
 
 function getSheet_() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = getSpreadsheet_();
   let sheet = ss.getSheetByName(SHEET_NAME);
   if (!sheet) sheet = ss.insertSheet(SHEET_NAME);
   if (sheet.getLastRow() === 0) {
